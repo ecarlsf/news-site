@@ -35,4 +35,8 @@ urlpatterns = [
     url(r'^link/create/$', auth(lviews.LinkeCreateView.as_view()), name='link_create'),
     url(r'^link/(?P<pk>\d+)/$', lviews.LinkDetailView.as_view(),
         name='link_detail'),
+    url(r'^link/update/(?P<pk>\d+)/$', auth(lviews.LinkUpdateView.as_view()),
+        name='link_update'),
+    url(r'^link/delete/(?P<pk>\d+)/$', auth(lviews.LinkDeleteView.as_view()),
+        name='link_delete'),
 ]

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views import generic
-from django.views.generic.edit import UpdateView, CreateView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 
 from .models import Link, Vote, UserProfile
 from .forms import UserProfileForm, LinkForm
@@ -49,3 +49,11 @@ class LinkeCreateView(CreateView):
 
 class LinkDetailView(generic.DetailView):
     model = Link
+
+class LinkUpdateView(UpdateView):
+    model = Link
+    form_class = LinkForm
+
+class LinkDeleteView(DeleteView):
+    model = Link
+    success_url = reverse_lazy("home")
