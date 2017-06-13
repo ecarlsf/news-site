@@ -15,16 +15,24 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
-from links.views import LinkListView
+# from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required as auth
+# from links.views import LinkListView, UserProfileDetailView, UserProfileEditView, LinkeCreateView
+import links.views as lviews
 
 urlpatterns = [
-    url(r'^$', LinkListView.as_view(), name='home'),
+    url(r'^$', lviews.LinkListView.as_view(), name='home'),
     # url(r'^login/$', auth_views.LoginView.as_view(), {
     #     'template_name': 'templates/login.html'}, name="login"),
     # url(r'^logout/$', auth_views.LogoutView.as_view(),
     #     name="logout"),
-    url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    # url(r'^login/$', auth_views.login, name='login'),
+    # url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('allauth.urls')),
+    url(r'^users/(?P<slug>\w+)/$', lviews.UserProfileDetailView.as_view(), name="profile"),
+    url(r'^edit_profile/$', auth(lviews.UserProfileEditView.as_view()), name="edit_profile"),
+    url(r'^link/create/$', auth(lviews.LinkeCreateView.as_view()), name='link_create'),
+    url(r'^link/(?P<pk>\d+)/$', lviews.LinkDetailView.as_view(),
+        name='link_detail'),
 ]
