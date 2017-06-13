@@ -34,11 +34,13 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    # 'django.contrib.comments',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_comments',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+
+
 #
 # from django.core.urlresolvers import reverse_lazy
 #
